@@ -1,0 +1,281 @@
+/* src/App.css */
+
+/* --- 1. Global Styles & Color Palette --- */
+:root {
+  --bg-darker: #1E2124;
+  --bg-dark: #282B30;
+  --bg-light: #36393F;
+  --bg-info: #fabd2f; /* 黄色提示条 */
+  --accent-green: #57F287;
+  --accent-blue: #5865F2;
+  --text-light: #F2F3F5;
+  --text-muted: #96989D;
+  --border-color: #40444B;
+  --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-family);
+  background-color: var(--bg-darker);
+  color: var(--text-light);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* --- 2. LiveDashboard Layout --- */
+.dashboard-container {
+  display: grid;
+  /* 修改这里：左侧编辑 | 中间主内容 | 右侧预览 */
+  grid-template-columns: 380px 1fr 320px; 
+  height: 100vh;
+  gap: 8px;
+  padding: 8px;
+}
+
+.sidebar, .main-content {
+  background-color: var(--bg-dark);
+  border-radius: 8px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* --- 3. Main Content (Script Display & Controls) --- */
+.main-content h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 10px;
+}
+
+.toolbar {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.toolbar button {
+  background-color: var(--bg-light);
+  color: var(--text-light);
+  border: 1px solid var(--border-color);
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.toolbar button:hover {
+  background-color: var(--border-color);
+}
+
+.script-display {
+  width: 100%;
+  flex-grow: 1;
+  background-color: var(--bg-darker);
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  color: var(--text-light);
+  font-size: 1rem;
+  padding: 15px;
+  resize: none;
+  box-sizing: border-box;
+}
+
+.controls {
+  display: flex;
+  gap: 12px;
+}
+
+/* --- 4. ScriptEditor Component --- */
+.script-editor-form {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.script-editor-form h3 {
+  margin-top: 0;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.form-group {
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  background-color: var(--bg-light);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  padding: 10px;
+  color: var(--text-light);
+  font-size: 1rem;
+  font-family: inherit;
+}
+
+.form-group textarea {
+  resize: vertical;
+}
+
+.form-group input::placeholder {
+  color: var(--text-muted);
+}
+
+.form-actions {
+  margin-top: auto; /* Pushes buttons to the bottom */
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+/* --- 5. Button Styles --- */
+button {
+  padding: 12px 20px;
+  border-radius: 5px;
+  border: none;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background-color: var(--accent-green);
+  color: var(--bg-darker);
+}
+
+.btn-primary:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+.btn-secondary {
+  background-color: var(--accent-blue);
+  color: var(--text-light);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+
+/* --- 6. SettingsModal Component --- */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: var(--bg-dark);
+  padding: 24px;
+  border-radius: 8px;
+  width: 500px;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.modal-content h2 {
+  margin: 0;
+  text-align: center;
+}
+
+.modal-content .form-group {
+  margin-bottom: 0;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.modal-actions button {
+  padding: 10px 20px;
+}
+
+
+/* --- 7. Live Preview Panel Styles --- */
+.preview-panel {
+  background-color: var(--bg-dark);
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.live-preview-container {
+  width: 100%;
+  height: 200px;
+  background-color: #000;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+}
+
+.preview-header {
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: bold;
+  padding: 4px 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.live-badge {
+  width: 8px;
+  height: 8px;
+  background-color: #ff0000;
+  border-radius: 50%;
+  animation: pulse 1.5s infinite;
+}
+
+.preview-screen {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: var(--text-muted);
+}
+.preview-screen p {
+    margin: 0;
+    font-size: 1.2rem;
+}
+ .preview-screen span {
+    font-size: 0.8rem;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7); }
+  70% { box-shadow: 0 0 0 10px rgba(255, 0, 0, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); }
+}

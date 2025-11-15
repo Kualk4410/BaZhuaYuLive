@@ -1,0 +1,4 @@
+module: deepseek-v3-250324
+base_url: https://ark.cn-beijing.volces.com/api/v3
+api_key: xxx
+xlsx_path: xxx
