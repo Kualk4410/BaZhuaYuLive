@@ -24,12 +24,29 @@ export const generateScriptContent = (scriptData) => {
   });
 };
 
-export const generateProductScript = (productData) => {
-  const user_prompt = `请根据以下产品信息，为我生成一段专业的直播口播稿：\n- 产品名称: ${productData.productName}\n- 核心卖点: ${productData.features.join('，')}\n- 目标用户: ${productData.targetAudience}\n- 价格: ${productData.price}\n- 优惠活动: ${productData.promotion}\n请直接返回生成的口播稿内容。`;
-  return apiFetch('/api/v1/llm/single_chat', {
+/**
+ * 【新】根据商品名称，请求后端生成备选提示词
+ * @param {{productName: string}} data
+ */
+export const generatePrompts = (data) => {
+  // 请与后端伙伴确认此接口地址
+  return apiFetch('/api/product/generate-prompts', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ user_prompt }),
+    body: JSON.stringify(data),
+  });
+};
+
+/**
+ * 【新】根据商品名称和用户选择的提示词，请求后端生成最终脚本
+ * @param {{productName: string, prompts: string[]}} data
+ */
+export const generateProductScriptFromPrompt = (data) => {
+  // 请与后端伙伴确认此接口地址
+  return apiFetch('/api/product/generate-script', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
   });
 };
 
@@ -49,11 +66,13 @@ export const saveScript = (scriptData) => apiFetch('/api/scripts', {
 
 // --- TTS & 模型管理 ---
 export const getTtsModels = () => apiFetch('/api/models/tts');
-export const generateSpeech = (data) => apiFetch('/api/speech/generate', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify(data),
-});
+export const generateSpeech = (formData) => {
+  // 请与后端伙伴确认此接口地址
+  return apiFetch('/api/tts/generate-cloned', {
+    method: 'POST',
+    body: formData, // 直接发送 FormData，不要设置 Content-Type
+  });
+};
 export const getLocalModels = () => apiFetch('/api/models/local');
 export const startTraining = (modelId, file) => {
   const formData = new FormData();
